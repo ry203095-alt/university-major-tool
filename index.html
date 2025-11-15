@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>اختبار التخصص الجامعي - السعودية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 20px 18px 26px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+    h1, h2 { text-align:center; margin:0 0 10px; }
+    h1 { font-size:1.5rem; color:#006c7f; }
+    h2 { font-size:1rem; color:#444; }
+    .intro {
+      text-align:center; font-size:0.9rem; color:#555; margin-bottom:15px;
+    }
+    .note {
+      background:#e6f7fa; border-right:4px solid #00a2c2;
+      padding:10px 12px; border-radius:10px; font-size:0.85rem;
+      margin-bottom:18px; color:#04505e;
+    }
+    .question {
+      margin:15px 0; padding:12px 10px; border-radius:10px;
+      background:#f8fafc; border:1px solid #e1e7f0;
+    }
+    .question-title { font-weight:700; margin-bottom:6px; color:#222; font-size:0.92rem; }
+    .options label { display:block; margin-bottom:4px; font-weight:400; cursor:pointer; }
+    .btn-center { text-align:center; margin-top:20px; }
+    button {
+      background:linear-gradient(135deg,#00b3c8,#007f91);
+      color:#fff; border:none; border-radius:999px;
+      padding:10px 28px; font-size:0.98rem; font-weight:600; cursor:pointer;
+    }
+    #resultBox {
+      margin-top:18px; padding:14px 12px; border-radius:12px;
+      background:#f1fffa; border:1px solid #b9f3d2; display:none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>اختبار التخصص الجامعي</h1>
+  <h2>للطلاب والطالبات في المملكة العربية السعودية</h2>
+
+  <p class="intro">أجب عن الأسئلة وسيقترح لك النظام المسار الجامعي الأنسب لك.</p>
+
+  <div class="question">
+    <div class="question-title">1. المادة الأقرب لقلبك:</div>
+    <div class="options">
+      <label><input type="radio" name="q1" value="health"> الأحياء والعلوم</label>
+      <label><input type="radio" name="q1" value="engineering"> الرياضيات والفيزياء</label>
+      <label><input type="radio" name="q1" value="computing"> الحاسب والبرمجة</label>
+      <label><input type="radio" name="q1" value="business"> الإدارة والتجارة</label>
+      <label><input type="radio" name="q1" value="humanities"> اللغة والإعلام</label>
+      <label><input type="radio" name="q1" value="design"> الفنون والتصميم</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-title">2. المهام التي تستمتعين بها:</div>
+    <div class="options">
+      <label><input type="radio" name="q2" value="health"> خدمة الناس صحيًا أو نفسيًا</label>
+      <label><input type="radio" name="q2" value="engineering"> حل المسائل المعقدة</label>
+      <label><input type="radio" name="q2" value="computing"> بناء تطبيقات أو مواقع</label>
+      <label><input type="radio" name="q2" value="business"> التخطيط والقيادة</label>
+      <label><input type="radio" name="q2" value="humanities"> الكتابة والتواصل</label>
+      <label><input type="radio" name="q2" value="design"> الإبداع البصري</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-title">3. بيئة العمل المفضلة:</div>
+    <div class="options">
+      <label><input type="radio" name="q3" value="health"> مستشفى أو مركز صحي</label>
+      <label><input type="radio" name="q3" value="engineering"> شركات هندسية</label>
+      <label><input type="radio" name="q3" value="computing"> شركات تقنية</label>
+      <label><input type="radio" name="q3" value="business"> شركات وبنوك</label>
+      <label><input type="radio" name="q3" value="humanities"> مدارس وإعلام</label>
+      <label><input type="radio" name="q3" value="design"> شركات تصميم</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <div class="question-title">4. كيف تحلّ المشكلة عادة؟</div>
+    <div class="options">
+      <label><input type="radio" name="q4" value="computing"> بحلول تقنية</label>
+      <label><input type="radio" name="q4" value="engineering"> بتحليل خطواتها</label>
+      <label><input type="radio" name="q4" value="business"> بالتفكير المالي والإداري</label>
+      <label><input type="radio" name="q4" value="health"> بالنظر لأثرها على الناس</label>
+      <label><input type="radio" name="q4" value="humanities"> بالتركيز على التواصل</label>
+      <label><input type="radio" name="q4" value="design"> بابتكار شكل أو فكرة</label>
+    </div>
+  </div>
+
+  <div class="btn-center">
+    <button onclick="getResult()">عرض التخصصات الأنسب</button>
+  </div>
+
+  <div id="resultBox"></div>
+</div>
+
+
+<script>
+function getResult() {
+  const answers = [];
+  for (let i = 1; i <= 4; i++) {
+    const ans = document.querySelector(`input[name="q${i}"]:checked`);
+    if (!ans) { alert("أجيبي على كل الأسئلة أولًا"); return; }
+    answers.push(ans.value);
+  }
+
+  const count = {};
+  answers.forEach(a => count[a] = (count[a] || 0) + 1);
+
+  const best = Object.keys(count).reduce((a, b) => count[a] > count[b] ? a : b);
+
+  const data = {
+    health: "المسار الصحي — الطب، التمريض، الصيدلة، العلاج الطبيعي، المختبرات.",
+    engineering: "المسار الهندسي — مدني، معماري، كهربائي، صناعي، ميكانيكي.",
+    computing: "مسار الحاسب — علوم الحاسب، الأمن السيبراني، الذكاء الاصطناعي، البرمجيات.",
+    business: "المسار الإداري — إدارة الأعمال، المحاسبة، المالية، التسويق.",
+    humanities: "المسار الإنساني — لغة عربية، إعلام، تاريخ، علم نفس، تربية.",
+    design: "مسار الفنون والتصميم — تصميم داخلي، جرافيك، أزياء، فنون رقمية."
+  };
+
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("resultBox").innerHTML = `
+    <h3>المسار الأنسب لك:</h3>
+    <p>${data[best]}</p>
+  `;
+}
+</script>
+
+</body>
+</html>
